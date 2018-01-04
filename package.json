@@ -1,0 +1,30 @@
+{
+	"name": "bitbuf",
+	"version": "0.1.0",
+	"description": "A class for arbitrary bit length buffer with bit level operations.",
+	"main": "bitbuf.js",
+	"scripts": {
+		"test": "node ./test/bitbuf-test.js"
+	},
+	"engines": {
+		"node": ">=0.10.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/rinne/node-bitbuf.git"
+	},
+	"keywords": [
+		"bitwise",
+		"buffer"
+	],
+	"author": {
+		"name": "Timo J. Rinne",
+		"email": "tri@iki.fi",
+		"url": "https://github.com/rinne/"
+	},
+	"license": "GPL-2.0",
+	"bugs": {
+		"url": "https://github.com/rinne/node-bitbuf/issues"
+	},
+	"homepage": "https://github.com/rinne/node-bitbuf#readme"
+}
