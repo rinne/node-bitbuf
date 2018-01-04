@@ -1,13 +1,13 @@
 {
 	"name": "bitbuf",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A class for arbitrary bit length buffer with bit level operations.",
 	"main": "bitbuf.js",
 	"scripts": {
 		"test": "node ./test/bitbuf-test.js"
 	},
 	"engines": {
-		"node": ">=0.10.0"
+		"node": ">=4.2.0"
 	},
 	"repository": {
 		"type": "git",

@@ -56,6 +56,14 @@ Set a value (0 or 1) to the bit in a given position within the
 BitBuf. If given value is not 0 or 1, the truth value is used
 automatically instead (val ? 1 : 0).
 
+BitBuf.prototype.toggle = function(pos)
+---------------------------------------
+
+Toggle a value of the bit in a given position within the BitBuf
+(i.e. turn 0 to 1 and 1 to 0).  This should be preferred to
+bb.set(pos, bb.get(pos) ? 0 : 1) because it's much faster, but the
+result is identical.
+
 BitBuf.concat(arr)
 ------------------
 

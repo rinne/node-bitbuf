@@ -131,6 +131,13 @@ BitBuf.prototype.set = function(pos, val) {
     }
 };
 
+BitBuf.prototype.toggle = function(pos) {
+    this.checkOffset(pos);
+    var o = off(pos);
+	this.buf[o[0]] ^= 1 << o[1];
+};
+
+
 BitBuf.prototype.copy = function() {
     var r = new BitBuf(0);
     this.trim();
