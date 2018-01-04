@@ -1,6 +1,6 @@
 {
 	"name": "bitbuf",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "A class for arbitrary bit length buffer with bit level operations.",
 	"main": "bitbuf.js",
 	"scripts": {
