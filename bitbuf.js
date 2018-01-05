@@ -16,7 +16,7 @@ function BitBuf(bitLength, fill) {
 
 BitBuf.MAX_SIZE = 16 * 1024 * 1024 * 8;
 
-function off(pos) {
+BitBuf.bitOffset = function(pos) {
     return [ pos >> 3, (7 - (pos & 7)) ];
 }
 
@@ -30,7 +30,7 @@ BitBuf.prototype.buffer = function() {
 };
 
 BitBuf.prototype.trim = function() {
-    var bl = ((this.length >> 3) + ((this.length & 7) ? 1 : 0)), o = off(this.length - 1);
+    var bl = ((this.length >> 3) + ((this.length & 7) ? 1 : 0)), o = BitBuf.bitOffset(this.length - 1);
     if (this.buf.length > bl) {
 		this.buf = this.buf.slice(0, bl);
     }
@@ -117,13 +117,13 @@ BitBuf.prototype.checkOffset = function(pos, doNotThrowError) {
 
 BitBuf.prototype.get = function(pos) {
     this.checkOffset(pos);
-    var o = off(pos);
+    var o = BitBuf.bitOffset(pos);
     return (this.buf[o[0]] >> o[1]) & 1;
 };
 
 BitBuf.prototype.set = function(pos, val) {
     this.checkOffset(pos);
-    var o = off(pos);
+    var o = BitBuf.bitOffset(pos);
     if (val) {
 		this.buf[o[0]] |= 1 << o[1];
     } else {
@@ -133,7 +133,7 @@ BitBuf.prototype.set = function(pos, val) {
 
 BitBuf.prototype.toggle = function(pos) {
     this.checkOffset(pos);
-    var o = off(pos);
+    var o = BitBuf.bitOffset(pos);
 	this.buf[o[0]] ^= 1 << o[1];
 };
 
@@ -171,7 +171,7 @@ BitBuf.prototype.slice = function(start, end) {
     if (end < start) {
 		throw new Error('Illegal BitBuf offset');
     }
-    var o1 = off(start), o2 = off(end);
+    var o1 = BitBuf.bitOffset(start), o2 = BitBuf.bitOffset(end);
     var b = Buffer.from(this.buf.slice(o1[0], o2[0] + 1));
     var i, m = (1 << (o1[1] + 1)) - 1;
     if (o1[1] != 7) {
@@ -202,7 +202,7 @@ BitBuf.prototype.toInteger = function() {
     if (this.length > 52) {
  		throw new Error('BitBuf size too long for integer export');
     }
-    o = off(this.length - 1);
+    o = BitBuf.bitOffset(this.length - 1);
     r = 0;
     for (i = 0; i < o[0]; i++) {
 		r = (r * 256) + this.buf[i];
