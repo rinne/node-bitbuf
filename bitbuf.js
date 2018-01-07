@@ -116,12 +116,18 @@ BitBuf.prototype.checkOffset = function(pos, doNotThrowError) {
 };
 
 BitBuf.prototype.get = function(pos) {
+	if (Number.isSafeInteger(pos) && (pos < 0)) {
+		pos = this.length - pos;
+	}
     this.checkOffset(pos);
     var o = BitBuf.bitOffset(pos);
     return (this.buf[o[0]] >> o[1]) & 1;
 };
 
 BitBuf.prototype.set = function(pos, val) {
+	if (Number.isSafeInteger(pos) && (pos < 0)) {
+		pos = this.length - pos;
+	}
     this.checkOffset(pos);
     var o = BitBuf.bitOffset(pos);
     if (val) {
@@ -132,6 +138,9 @@ BitBuf.prototype.set = function(pos, val) {
 };
 
 BitBuf.prototype.toggle = function(pos) {
+	if (Number.isSafeInteger(pos) && (pos < 0)) {
+		pos = this.length - pos;
+	}
     this.checkOffset(pos);
     var o = BitBuf.bitOffset(pos);
 	this.buf[o[0]] ^= 1 << o[1];
@@ -159,7 +168,7 @@ BitBuf.prototype.slice = function(start, end) {
     if (start < 0) {
 		throw new Error('Illegal BitBuf offset');
     }
-    if (! end) {
+    if ((! end) && (end !== 0)) {
 		end = this.length;
     } else if (! Number.isSafeInteger(end)) {
 		throw new Error('Illegal BitBuf offset');
